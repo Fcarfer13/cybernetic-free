@@ -19,9 +19,11 @@
     "@fullcalendar/daygrid": "^6.1.17",
     "@fullcalendar/interaction": "^6.1.17",
     "@hookform/resolvers": "^3.3.4",
+    "@libsql/client": "^0.15.2",
     "aos": "^2.3.4",
     "astro": "^4.5.8",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.7",
     "gsap": "^3.12.5",
     "react-device-detect": "^2.2.3",
     "react-hook-form": "^7.51.3",
@@ -33,6 +35,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/aos": "^3.0.7"
+    "@types/aos": "^3.0.7",
+    "tsx": "^4.19.3"
   }
 }
