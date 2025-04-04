@@ -1,0 +1,153 @@
+---
+import { Calendar as FullCalendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import '@fullcalendar/core/main.css';
+import '@fullcalendar/daygrid/main.css';
+
+interface Props {
+  events: Array<{
+    title: string;
+    date: string;
+  }>;
+  onDateSelect: (date: string) => void;
+}
+
+const { events, onDateSelect } = Astro.props;
+
+const today = new Date();
+const currentMonth = today.getMonth();
+const currentYear = today.getFullYear();
+
+const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+const days = [];
+for (let i = 0; i < firstDayOfMonth; i++) {
+  days.push(null);
+}
+
+for (let i = 1; i <= daysInMonth; i++) {
+  days.push(i);
+}
+
+const weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+function formatDate(date: Date): string {
+  return date.toISOString().split('T')[0];
+}
+
+function isEventDate(date: Date): boolean {
+  return events.some(event => event.date === formatDate(date));
+}
+
+function getEventTitle(date: Date): string | undefined {
+  const event = events.find(event => event.date === formatDate(date));
+  return event?.title;
+}
+---
+<div class="calendar">
+  <div class="calendar-header">
+    <h3>{months[currentMonth]} {currentYear}</h3>
+  </div>
+  
+  <div class="calendar-grid">
+    {weekDays.map(day => (
+      <div class="calendar-weekday">{day}</div>
+    ))}
+    
+    {days.map((day, index) => {
+      if (day === null) {
+        return <div class="calendar-day empty"></div>;
+      }
+      
+      const date = new Date(currentYear, currentMonth, day);
+      const dateString = date.toISOString().split('T')[0];
+      const hasEvent = events.some(event => event.date === dateString);
+      
+      return (
+        <div 
+          class={`calendar-day ${hasEvent ? 'has-event' : ''}`}
+          data-date={dateString}
+        >
+          {day}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .calendar {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .calendar-header {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .calendar-header h3 {
+    color: #353461;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+  }
+
+  .calendar-weekday {
+    text-align: center;
+    font-weight: 600;
+    color: #353461;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+  }
+
+  .calendar-day:hover {
+    background-color: #f3f4f6;
+  }
+
+  .calendar-day.has-event {
+    background-color: #eef2ff;
+    color: #353461;
+    font-weight: 500;
+  }
+
+  .calendar-day.empty {
+    background-color: transparent;
+    cursor: default;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.calendar-day:not(.empty)').forEach(day => {
+    day.addEventListener('click', () => {
+      const date = day.getAttribute('data-date');
+      if (date) {
+        const onDateSelect = (window as any).onDateSelect;
+        if (typeof onDateSelect === 'function') {
+          onDateSelect(date);
+        }
+      }
+    });
+  });
+</script> 

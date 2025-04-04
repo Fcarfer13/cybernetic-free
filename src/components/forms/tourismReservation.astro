@@ -1,0 +1,188 @@
+---
+import DatePicker from '../DatePicker.astro';
+---
+
+<form class="reservation-form" method="POST">
+    <div class="form-section">
+        <h3>Selecciona la fecha</h3>
+        <DatePicker events={[]} />
+        <input type="hidden" id="selectedDate" name="date" />
+    </div>
+
+    <div class="form-section">
+        <h3>Selecciona tu tour</h3>
+        <div class="form-group">
+            <label for="shift">Turno</label>
+            <select id="shift" name="shift" required>
+                <option value="">Selecciona un turno</option>
+                <option value="morning">Mañana (9:00 - 13:00)</option>
+                <option value="afternoon">Tarde (14:00 - 18:00)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="route">Ruta Turística</label>
+            <select id="route" name="route" required>
+                <option value="">Selecciona una ruta</option>
+                <option value="historical">Ruta Histórica</option>
+                <option value="cultural">Ruta Cultural</option>
+                <option value="gastronomic">Ruta Gastronómica</option>
+                <option value="nature">Ruta Natural</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3>¿Cómo deseas continuar?</h3>
+        <div class="auth-options">
+            <button type="button" class="auth-button guest" id="continueAsGuest">
+                Continuar como invitado
+            </button>
+            <button type="button" class="auth-button login">
+                Iniciar sesión
+            </button>
+            <button type="button" class="auth-button register">
+                Registrarse
+            </button>
+        </div>
+
+        <div class="guest-fields" style="display: none;">
+            <div class="form-group">
+                <label for="name">Nombre completo</label>
+                <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Teléfono</label>
+                <input type="tel" id="phone" name="phone" required />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <button type="submit" class="submit-button">
+            Confirmar reserva
+        </button>
+    </div>
+</form>
+
+<style>
+    .reservation-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .form-section {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-section h3 {
+        color: #353461;
+        margin-bottom: 1.5rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #374151;
+        font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        color: #374151;
+        transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #353461;
+    }
+
+    .auth-options {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .auth-button {
+        padding: 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .auth-button.guest {
+        background-color: #353461;
+        color: white;
+    }
+
+    .auth-button.login {
+        background-color: #f3f4f6;
+        color: #353461;
+    }
+
+    .auth-button.register {
+        background-color: #e5e7eb;
+        color: #374151;
+    }
+
+    .auth-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 1rem;
+        background-color: #353461;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .submit-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script>
+    const continueAsGuest = document.getElementById('continueAsGuest');
+    const guestFields = document.querySelector('.guest-fields') as HTMLElement;
+
+    if (continueAsGuest && guestFields) {
+        continueAsGuest.addEventListener('click', () => {
+            guestFields.style.display = 'block';
+        });
+    }
+</script> 

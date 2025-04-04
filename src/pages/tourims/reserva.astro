@@ -1,8 +1,23 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Hero from "../../modules/Hero.astro";
-import HeroSlider3 from "../../static/images/hero-slider-03.webp";
 import { Footer } from "../../modules/Footer";
+import TourismReservation from "../../components/forms/tourismReservation.astro";
+
+interface Event {
+  title: string;
+  date: string;
+}
+
+const events: Event[] = [
+  {
+    title: "Tour Plaza de Toros",
+    date: "2024-04-15"
+  },
+  {
+    title: "Visita Iglesia",
+    date: "2024-04-20"
+  }
+];
 ---
 
 <Layout
@@ -10,74 +25,9 @@ import { Footer } from "../../modules/Footer";
     description="Reserva tu visita a los lugares turísticos de Villanueva"
 >
     <main class="page-content">
-        <Hero
-            heroType="fullPageSlider"
-            client="visible"
-            data={{
-                image: {
-                    src: HeroSlider3,
-                    width: 1920,
-                    height: 1080,
-                    alt: "Reservas Turismo"
-                },
-                content: {
-                    title: "RESERVAS",
-                    paragraph: "Reserva tu visita a los lugares turísticos de Villanueva"
-                }
-            }}
-        />
-
         <section class="reservation-form">
             <div class="container">
-                <form class="form" id="reservationForm">
-                    <div class="form-group">
-                        <label for="name">Nombre completo</label>
-                        <input type="text" id="name" name="name" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" id="email" name="email" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Teléfono</label>
-                        <input type="tel" id="phone" name="phone" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="date">Fecha de visita</label>
-                        <input type="date" id="date" name="date" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="time">Hora de visita</label>
-                        <input type="time" id="time" name="time" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="place">Lugar a visitar</label>
-                        <select id="place" name="place" required>
-                            <option value="">Selecciona un lugar</option>
-                            <option value="plaza-toros">Plaza de Toros</option>
-                            <option value="iglesia">Iglesia Parroquial</option>
-                            <option value="castillo">Castillo</option>
-                            <option value="museo">Museo Local</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="people">Número de personas</label>
-                        <input type="number" id="people" name="people" min="1" max="20" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="comments">Comentarios adicionales</label>
-                        <textarea id="comments" name="comments" rows="4"></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-button">Confirmar Reserva</button>
-                </form>
+                <TourismReservation events={events} />
             </div>
         </section>
     </main>
@@ -86,82 +36,18 @@ import { Footer } from "../../modules/Footer";
         .reservation-form {
             padding: 4rem 0;
             background-color: #f8f9fa;
+            min-height: calc(100vh - 400px);
+            display: flex;
+            align-items: center;
         }
 
         .container {
+            width: 100%;
             max-width: 800px;
             margin: 0 auto;
             padding: 0 1rem;
         }
-
-        .form {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-        }
-
-        .submit-button {
-            width: 100%;
-            padding: 1rem;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .submit-button:hover {
-            background-color: #0056b3;
-        }
-
-        @media (max-width: 768px) {
-            .form {
-                padding: 1.5rem;
-            }
-        }
     </style>
-
-    <script>
-        const form = document.getElementById('reservationForm');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Aquí puedes agregar la lógica para enviar el formulario
-                alert('¡Reserva enviada con éxito! Nos pondremos en contacto contigo pronto.');
-                (this as HTMLFormElement).reset();
-            });
-        }
-    </script>
 
     <Footer />
 </Layout> 

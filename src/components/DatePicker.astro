@@ -1,0 +1,213 @@
+---
+interface Props {
+  events: Array<{
+    title: string;
+    date: string;
+  }>;
+}
+
+const { events } = Astro.props;
+
+const today = new Date();
+const currentMonth = today.getMonth();
+const currentYear = today.getFullYear();
+
+const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+const emptyDays = Array.from({ length: firstDayOfMonth }, () => null);
+
+const weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+---
+
+<div class="calendar-container">
+  <div class="calendar-header">
+    <button class="nav-button prev" id="prevMonth">←</button>
+    <h3 class="month-title">
+      {new Date(currentYear, currentMonth).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}
+    </h3>
+    <button class="nav-button next" id="nextMonth">→</button>
+  </div>
+
+  <div class="calendar-grid">
+    {weekDays.map(day => (
+      <div class="week-day">{day}</div>
+    ))}
+    {emptyDays.map(() => (
+      <div class="empty-day"></div>
+    ))}
+    {days.map(day => {
+      const date = new Date(currentYear, currentMonth, day);
+      const dateString = date.toISOString().split('T')[0];
+      const hasEvent = events.some(event => event.date === dateString);
+      const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+      
+      return (
+        <button 
+          class="calendar-day"
+          data-date={dateString}
+          data-has-event={hasEvent}
+          data-is-today={isToday}
+        >
+          {day}
+          {hasEvent && <span class="event-dot"></span>}
+        </button>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .calendar-container {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .month-title {
+    color: #353461;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    text-transform: capitalize;
+  }
+
+  .nav-button {
+    background: none;
+    border: none;
+    color: #353461;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .nav-button:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-1px);
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+  }
+
+  .week-day {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    padding: 0.5rem;
+  }
+
+  .empty-day {
+    background: transparent;
+  }
+
+  .calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    padding: 0;
+  }
+
+  .calendar-day:hover {
+    background-color: #f3f4f6;
+    border-color: #353461;
+    transform: translateY(-1px);
+  }
+
+  .calendar-day[data-is-today="true"] {
+    background-color: #353461;
+    color: white;
+    border-color: #353461;
+  }
+
+  .calendar-day[data-selected="true"] {
+    background-color: #353461;
+    color: white;
+    border-color: #353461;
+    box-shadow: 0 0 0 2px rgba(53, 52, 97, 0.2);
+  }
+
+  .event-dot {
+    position: absolute;
+    bottom: 0.25rem;
+    width: 0.375rem;
+    height: 0.375rem;
+    background-color: #353461;
+    border-radius: 50%;
+  }
+
+  .calendar-day[data-is-today="true"] .event-dot {
+    background-color: white;
+  }
+
+  .calendar-day[data-selected="true"] .event-dot {
+    background-color: white;
+  }
+</style>
+
+<script>
+  const calendarDays = document.querySelectorAll('.calendar-day');
+  let selectedDay = null;
+
+  calendarDays.forEach(day => {
+    day.addEventListener('click', () => {
+      // Remove selected class from previously selected day
+      if (selectedDay) {
+        selectedDay.removeAttribute('data-selected');
+      }
+
+      // Add selected class to clicked day
+      day.setAttribute('data-selected', 'true');
+      selectedDay = day;
+
+      // Update the hidden input with the selected date
+      const date = day.getAttribute('data-date');
+      if (date) {
+        const dateInput = document.getElementById('selectedDate');
+        if (dateInput) {
+          dateInput.value = date;
+        }
+      }
+    });
+  });
+
+  // Handle month navigation
+  const prevButton = document.getElementById('prevMonth');
+  const nextButton = document.getElementById('nextMonth');
+
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      // Implement month navigation logic here
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      // Implement month navigation logic here
+    });
+  }
+</script> 
