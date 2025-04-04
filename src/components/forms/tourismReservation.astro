@@ -5,7 +5,9 @@ import DatePicker from '../DatePicker.astro';
 <form class="reservation-form" method="POST">
     <div class="form-section">
         <h3>Selecciona la fecha</h3>
-        <DatePicker events={[]} />
+        <div class="calendar-container">
+            <DatePicker events={[]} />
+        </div>
         <input type="hidden" id="selectedDate" name="date" />
     </div>
 
@@ -73,9 +75,10 @@ import DatePicker from '../DatePicker.astro';
 
 <style>
     .reservation-form {
-        max-width: 600px;
+        max-width: 800px;
         margin: 0 auto;
-        padding: 2rem;
+        padding: 1rem;
+        width: 100%;
     }
 
     .form-section {
@@ -91,6 +94,13 @@ import DatePicker from '../DatePicker.astro';
         margin-bottom: 1.5rem;
         font-size: 1.25rem;
         font-weight: 600;
+    }
+
+    .calendar-container {
+        width: 100%;
+        overflow-x: auto;
+        margin-bottom: 1rem;
+        -webkit-overflow-scrolling: touch;
     }
 
     .form-group {
@@ -113,6 +123,8 @@ import DatePicker from '../DatePicker.astro';
         font-size: 1rem;
         color: #374151;
         transition: border-color 0.2s ease;
+        -webkit-appearance: none;
+        appearance: none;
     }
 
     .form-group input:focus,
@@ -135,6 +147,7 @@ import DatePicker from '../DatePicker.astro';
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .auth-button.guest {
@@ -168,11 +181,123 @@ import DatePicker from '../DatePicker.astro';
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .submit-button:hover {
         transform: translateY(-1px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .reservation-form {
+            padding: 0.5rem;
+        }
+
+        .form-section {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .auth-button {
+            padding: 0.9rem;
+            font-size: 1rem;
+        }
+
+        .submit-button {
+            padding: 0.9rem;
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .reservation-form {
+            padding: 0;
+        }
+
+        .form-section {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .form-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-container {
+            margin: 0 -1rem;
+            padding: 0 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.8rem;
+            font-size: 1rem;
+            border-radius: 0.4rem;
+        }
+
+        .auth-options {
+            gap: 0.8rem;
+        }
+
+        .auth-button {
+            padding: 0.9rem;
+            font-size: 0.95rem;
+            border-radius: 0.4rem;
+        }
+
+        .submit-button {
+            padding: 0.9rem;
+            font-size: 0.95rem;
+            border-radius: 0.4rem;
+        }
+
+        /* Mejoras para inputs en móvil */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            font-size: 16px; /* Evita el zoom automático en iOS */
+        }
+
+        /* Mejoras para botones en móvil */
+        button {
+            touch-action: manipulation;
+        }
+    }
+
+    /* Estilos específicos para iOS */
+    @supports (-webkit-touch-callout: none) {
+        .form-group input,
+        .form-group select {
+            font-size: 16px;
+        }
     }
 </style>
 

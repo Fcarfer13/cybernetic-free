@@ -8,206 +8,235 @@ interface Props {
 
 const { events } = Astro.props;
 
-const today = new Date();
-const currentMonth = today.getMonth();
-const currentYear = today.getFullYear();
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth();
+const currentYear = currentDate.getFullYear();
 
-const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+// Función para obtener el primer día del mes
+const getFirstDayOfMonth = (year: number, month: number) => {
+  const firstDay = new Date(year, month, 1);
+  let day = firstDay.getDay();
+  // Convertimos domingo (0) a 7 para mantener la secuencia lunes-domingo
+  if (day === 0) day = 7;
+  return day - 1; // Restamos 1 para que el lunes sea 0
+};
 
-const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-const emptyDays = Array.from({ length: firstDayOfMonth }, () => null);
+// Función para obtener el número de días en el mes
+const getDaysInMonth = (year: number, month: number) => {
+  return new Date(year, month + 1, 0).getDate();
+};
 
-const weekDays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+// Función para generar los días del mes
+const generateDays = (year: number, month: number) => {
+  const daysInMonth = getDaysInMonth(year, month);
+  const firstDay = getFirstDayOfMonth(year, month);
+  const days = [];
+
+  // Agregar días vacíos al principio si el mes no empieza en lunes
+  for (let i = 0; i < firstDay; i++) {
+    days.push({ day: '', isCurrentMonth: false });
+  }
+
+  // Agregar los días del mes
+  for (let i = 1; i <= daysInMonth; i++) {
+    const date = new Date(year, month, i);
+    const dateString = date.toISOString().split('T')[0];
+    const hasEvent = events.some(event => event.date === dateString);
+    days.push({
+      day: i,
+      isCurrentMonth: true,
+      isToday: i === currentDate.getDate() && month === currentMonth && year === currentYear,
+      hasEvent,
+      date: dateString
+    });
+  }
+
+  return days;
+};
+
+// Función para obtener el nombre del mes
+const getMonthName = (month: number) => {
+  const months = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ];
+  return months[month];
+};
+
+// Función para obtener los nombres de los días de la semana
+const getWeekDays = () => {
+  return ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+};
+
+const days = generateDays(currentYear, currentMonth);
+const weekDays = getWeekDays();
 ---
 
-<div class="calendar-container">
+<div class="calendar">
   <div class="calendar-header">
-    <button class="nav-button prev" id="prevMonth">←</button>
-    <h3 class="month-title">
-      {new Date(currentYear, currentMonth).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}
-    </h3>
-    <button class="nav-button next" id="nextMonth">→</button>
+    <button class="nav-button prev" type="button" aria-label="Mes anterior">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    <h2>{getMonthName(currentMonth)} {currentYear}</h2>
+    <button class="nav-button next" type="button" aria-label="Mes siguiente">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
   </div>
 
-  <div class="calendar-grid">
+  <div class="week-days">
     {weekDays.map(day => (
       <div class="week-day">{day}</div>
     ))}
-    {emptyDays.map(() => (
-      <div class="empty-day"></div>
+  </div>
+
+  <div class="days-grid">
+    {days.map((day, index) => (
+      <div
+        class={`day ${day.isCurrentMonth ? 'current-month' : ''} ${day.isToday ? 'today' : ''} ${day.hasEvent ? 'has-event' : ''}`}
+        data-date={day.date}
+      >
+        {day.day}
+        {day.hasEvent && <span class="event-dot"></span>}
+      </div>
     ))}
-    {days.map(day => {
-      const date = new Date(currentYear, currentMonth, day);
-      const dateString = date.toISOString().split('T')[0];
-      const hasEvent = events.some(event => event.date === dateString);
-      const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
-      
-      return (
-        <button 
-          class="calendar-day"
-          data-date={dateString}
-          data-has-event={hasEvent}
-          data-is-today={isToday}
-        >
-          {day}
-          {hasEvent && <span class="event-dot"></span>}
-        </button>
-      );
-    })}
   </div>
 </div>
 
 <style>
-  .calendar-container {
+  .calendar {
     background: white;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 100%;
+    min-width: 300px;
   }
 
   .calendar-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 1.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 
-  .month-title {
-    color: #353461;
-    font-size: 1.25rem;
-    font-weight: 600;
+  .calendar-header h2 {
     margin: 0;
-    text-transform: capitalize;
+    font-size: 1.25rem;
+    color: #333;
   }
 
   .nav-button {
     background: none;
     border: none;
-    color: #353461;
-    font-size: 1.25rem;
     cursor: pointer;
     padding: 0.5rem;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
+    color: #666;
+    transition: color 0.2s ease;
   }
 
   .nav-button:hover {
-    background-color: #f3f4f6;
-    transform: translateY(-1px);
+    color: #333;
   }
 
-  .calendar-grid {
+  .week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .week-day {
     text-align: center;
     font-size: 0.875rem;
-    font-weight: 600;
-    color: #6b7280;
-    padding: 0.5rem;
+    color: #666;
+    font-weight: 500;
   }
 
-  .empty-day {
-    background: transparent;
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
   }
 
-  .calendar-day {
+  .day {
     aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
     font-size: 0.875rem;
-    color: #374151;
+    color: #666;
     cursor: pointer;
-    transition: all 0.2s ease;
     position: relative;
-    padding: 0;
+    transition: all 0.2s ease;
   }
 
-  .calendar-day:hover {
-    background-color: #f3f4f6;
-    border-color: #353461;
-    transform: translateY(-1px);
+  .day.current-month {
+    color: #333;
   }
 
-  .calendar-day[data-is-today="true"] {
-    background-color: #353461;
-    color: white;
-    border-color: #353461;
+  .day.today {
+    background-color: #f0f0f0;
+    font-weight: 600;
   }
 
-  .calendar-day[data-selected="true"] {
-    background-color: #353461;
-    color: white;
-    border-color: #353461;
-    box-shadow: 0 0 0 2px rgba(53, 52, 97, 0.2);
-  }
-
-  .event-dot {
+  .day.has-event::after {
+    content: '';
     position: absolute;
     bottom: 0.25rem;
-    width: 0.375rem;
-    height: 0.375rem;
+    width: 0.25rem;
+    height: 0.25rem;
     background-color: #353461;
     border-radius: 50%;
   }
 
-  .calendar-day[data-is-today="true"] .event-dot {
-    background-color: white;
+  .day:hover {
+    background-color: #f5f5f5;
   }
 
-  .calendar-day[data-selected="true"] .event-dot {
-    background-color: white;
+  .day.selected {
+    background-color: #353461;
+    color: white;
+  }
+
+  @media (max-width: 480px) {
+    .calendar {
+      padding: 0.75rem;
+    }
+
+    .calendar-header h2 {
+      font-size: 1.1rem;
+    }
+
+    .week-day {
+      font-size: 0.8rem;
+    }
+
+    .day {
+      font-size: 0.8rem;
+    }
   }
 </style>
 
 <script>
-  const calendarDays = document.querySelectorAll('.calendar-day');
-  let selectedDay = null;
+  const days = document.querySelectorAll('.day');
+  const selectedDateInput = document.getElementById('selectedDate') as HTMLInputElement;
 
-  calendarDays.forEach(day => {
+  days.forEach(day => {
     day.addEventListener('click', () => {
-      // Remove selected class from previously selected day
-      if (selectedDay) {
-        selectedDay.removeAttribute('data-selected');
-      }
-
-      // Add selected class to clicked day
-      day.setAttribute('data-selected', 'true');
-      selectedDay = day;
-
-      // Update the hidden input with the selected date
-      const date = day.getAttribute('data-date');
-      if (date) {
-        const dateInput = document.getElementById('selectedDate');
-        if (dateInput) {
-          dateInput.value = date;
-        }
+      // Remover la clase selected de todos los días
+      days.forEach(d => d.classList.remove('selected'));
+      
+      // Agregar la clase selected al día clickeado
+      day.classList.add('selected');
+      
+      // Actualizar el input hidden con la fecha seleccionada
+      if (selectedDateInput) {
+        selectedDateInput.value = day.getAttribute('data-date') || '';
       }
     });
   });
-
-  // Handle month navigation
-  const prevButton = document.getElementById('prevMonth');
-  const nextButton = document.getElementById('nextMonth');
-
-  if (prevButton) {
-    prevButton.addEventListener('click', () => {
-      // Implement month navigation logic here
-    });
-  }
-
-  if (nextButton) {
-    nextButton.addEventListener('click', () => {
-      // Implement month navigation logic here
-    });
-  }
 </script> 

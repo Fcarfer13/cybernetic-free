@@ -36,12 +36,349 @@ import { Hero } from "@modules/Hero";
                 },
             ]}
         />
+
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Descubre Villanueva del Arzobispo</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-image">
+                            <img src="/images/tourism/plaza-mayor.jpg" alt="Plaza Mayor de Villanueva" />
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <h3>Turismo</h3>
+                            <p>Explora los rincones más emblemáticos de nuestro pueblo a través de rutas históricas, culturales y gastronómicas.</p>
+                            <ul class="feature-list">
+                                <li>Rutas históricas</li>
+                                <li>Patrimonio cultural</li>
+                                <li>Gastronomía local</li>
+                            </ul>
+                            <a href="/tourism" class="feature-link">Ver más</a>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-image">
+                            <img src="/images/accommodations/hotel-rural.jpg" alt="Hotel Rural" />
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                    <line x1="6" y1="1" x2="6" y2="4"></line>
+                                    <line x1="10" y1="1" x2="10" y2="4"></line>
+                                    <line x1="14" y1="1" x2="14" y2="4"></line>
+                                </svg>
+                            </div>
+                            <h3>Hospedajes</h3>
+                            <p>Encuentra el alojamiento perfecto para tu estancia, desde hoteles hasta casas rurales y caravanas.</p>
+                            <ul class="feature-list">
+                                <li>Hoteles</li>
+                                <li>Casas rurales</li>
+                                <li>Caravanas</li>
+                            </ul>
+                            <a href="/hospedajes" class="feature-link">Ver más</a>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-image">
+                            <img src="/images/sports/senderismo.jpg" alt="Actividades deportivas" />
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <h3>Actividades</h3>
+                            <p>Disfruta de una amplia variedad de actividades deportivas y de ocio para todos los gustos y edades.</p>
+                            <ul class="feature-list">
+                                <li>Deportes de aire libre</li>
+                                <li>Deportes de interior</li>
+                                <li>Deportes en contacto con la naturaleza</li>
+                            </ul>
+                            <a href="/activitiesSports" class="feature-link">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>¿Listo para vivir tu experiencia?</h2>
+                    <p>Reserva ahora y disfruta de todo lo que Villanueva del Arzobispo tiene para ofrecerte.</p>
+                    <div class="cta-buttons">
+                        <a href="/reserva" class="cta-button primary">Reservar Ahora</a>
+                        <a href="/contacto" class="cta-button secondary">Contactar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-    <div class="information-container">
-        <div class="container">
-           
-        </div>
-
-
-    </div>
 </Layout>
+
+<style>
+    .features-section {
+        padding: 4rem 0;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .section-title {
+        text-align: center;
+        color: #353461;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background-color: #353461;
+        margin: 1rem auto 0;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-image {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .feature-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover .feature-image img {
+        transform: scale(1.1);
+    }
+
+    .feature-content {
+        padding: 2rem;
+    }
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        background-color: #353461;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .feature-icon svg {
+        color: white;
+        width: 24px;
+        height: 24px;
+    }
+
+    .feature-card h3 {
+        color: #353461;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+        color: #666;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+    }
+
+    .feature-list li {
+        color: #353461;
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+
+    .feature-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #353461;
+    }
+
+    .feature-link {
+        color: #353461;
+        text-decoration: none;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s ease;
+    }
+
+    .feature-link:hover {
+        color: #2a294d;
+        text-decoration: none;
+    }
+
+    .cta-section {
+        padding: 4rem 0;
+        background: linear-gradient(rgba(53, 52, 97, 0.9), rgba(53, 52, 97, 0.9)), url('/images/cta-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        text-align: center;
+    }
+
+    .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .cta-button.primary {
+        background-color: white;
+        color: #353461;
+    }
+
+    .cta-button.secondary {
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .features-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .feature-content {
+            padding: 1.5rem;
+        }
+
+        .cta-section {
+            padding: 3rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cta-button {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .features-section {
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+        }
+
+        .feature-image {
+            height: 180px;
+        }
+
+        .cta-section {
+            padding: 2rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 1.75rem;
+        }
+
+        .cta-section p {
+            font-size: 1rem;
+        }
+    }
+</style>
