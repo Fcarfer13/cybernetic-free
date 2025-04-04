@@ -1,0 +1,591 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Footer } from "../modules/Footer";
+import { Hero } from "@modules/Hero";
+---
+
+<Layout
+    title="A la Carta | Actividades Deportivas"
+    description="Descubre las diferentes actividades deportivas disponibles en Villanueva"
+>
+    <main class="page-content">
+        <Hero
+        heroType="fullPageSlider"
+        client:visible
+        data={[{
+            background: "https://gualay.com/wp-content/uploads/2017/11/sobre-nosotros-sulayr-aventura-1024x576.jpg",
+            title: "ACTIVIDADES DEPORTIVAS",
+            paragraph:
+                "HAZ DEPORTE MIENTRAS DISFRUTAS DE LA NATURALEZA Y TUS VACACIONES",
+        }]}
+        />
+
+        <section class="sports-section">
+            <div class="container">
+                <!-- Deportes de Aire Libre -->
+                <div class="sports-category">
+                    <div class="category-header">
+                        <h2>Deportes de Aire Libre</h2>
+                        <p class="category-description">Actividades al aire libre en nuestras modernas instalaciones</p>
+                    </div>
+                    <div class="sports-grid">
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/futbol.jpg" alt="Fútbol" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=futbol" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Fútbol</h3>
+                                <p>Disfruta de partidos en nuestros campos municipales con césped artificial de última generación</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Campo Municipal</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Lunes a Viernes: 16:00 - 22:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Desde 10€/hora</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/tenis.jpg" alt="Tenis" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=tenis" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Tenis</h3>
+                                <p>Clases y partidos en nuestras pistas de tenis con superficie profesional</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Pistas Municipales</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Todos los días: 8:00 - 22:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Desde 15€/hora</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/basketball.jpg" alt="Baloncesto" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=baloncesto" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Baloncesto</h3>
+                                <p>Canchas disponibles para partidos y entrenamientos con iluminación LED</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Pabellón Municipal</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Lunes a Domingo: 9:00 - 23:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Desde 12€/hora</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deportes de Interior -->
+                <div class="sports-category">
+                    <div class="category-header">
+                        <h2>Deportes de Interior</h2>
+                        <p class="category-description">Instalaciones climatizadas para disfrutar todo el año</p>
+                    </div>
+                    <div class="sports-grid">
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/gimnasio.jpg" alt="Gimnasio" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=gimnasio" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Gimnasio</h3>
+                                <p>Instalaciones modernas con equipamiento completo y entrenadores personales</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Centro Deportivo Municipal</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Lunes a Domingo: 7:00 - 23:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Desde 30€/mes</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/padel.jpg" alt="Pádel" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=padel" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Pádel</h3>
+                                <p>Pistas cubiertas con cristal templado para disfrutar en cualquier época del año</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Club de Pádel</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Todos los días: 8:00 - 22:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Desde 18€/hora</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/natacion.jpg" alt="Natación" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=natacion" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Natación</h3>
+                                <p>Piscina climatizada con diferentes niveles y clases para todas las edades</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Piscina Municipal</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Lunes a Domingo: 7:00 - 22:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Desde 5€/sesión</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deportes en Contacto con la Naturaleza -->
+                <div class="sports-category">
+                    <div class="category-header">
+                        <h2>Deportes en Contacto con la Naturaleza</h2>
+                        <p class="category-description">Disfruta de la naturaleza mientras practicas deporte</p>
+                    </div>
+                    <div class="sports-grid">
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/senderismo.jpg" alt="Senderismo" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=senderismo" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Senderismo</h3>
+                                <p>Rutas señalizadas por nuestros parajes naturales con diferentes niveles de dificultad</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Rutas Municipales</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Acceso libre</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Gratis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/ciclismo.jpg" alt="Ciclismo" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=ciclismo" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Ciclismo</h3>
+                                <p>Circuito de BTT y rutas para ciclistas con diferentes niveles de dificultad</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Circuito BTT</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Acceso libre</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Gratis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sport-card">
+                            <div class="card-image">
+                                <img src="/images/sports/equitacion.jpg" alt="Equitación" />
+                                <div class="card-overlay">
+                                    <a href="/reservas?deporte=equitacion" class="reserve-button">Reservar</a>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>Equitación</h3>
+                                <p>Clases y rutas a caballo por el campo con instructores certificados</p>
+                                <div class="sport-info">
+                                    <div class="info-item">
+                                        <i class="icon-location"></i>
+                                        <span>Centro Hípico</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-clock"></i>
+                                        <span>Martes a Domingo: 9:00 - 20:00</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="icon-price"></i>
+                                        <span>Desde 25€/hora</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        .page-content {
+            min-height: calc(100vh - 400px);
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(53, 52, 97, 0.8), rgba(53, 52, 97, 0.8)),
+                        url('/images/sports/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(53, 52, 97, 0.9), rgba(53, 52, 97, 0.7));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .sports-section {
+            padding: 5rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .sports-category {
+            margin-bottom: 5rem;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .sports-category h2 {
+            color: #353461;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .category-description {
+            color: #6b7280;
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .sport-card {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .sport-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(53, 52, 97, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sport-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .reserve-button {
+            background: white;
+            color: #353461;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .reserve-button:hover {
+            background: #353461;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .sport-card h3 {
+            color: #353461;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .sport-card p {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .sport-info {
+            background: #f8f9fa;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-item i {
+            margin-right: 1rem;
+            color: #353461;
+            font-size: 1.25rem;
+        }
+
+        .info-item span {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-section h1 {
+                font-size: 3rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .sports-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 0;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .sports-section {
+                padding: 3rem 0;
+            }
+
+            .sports-category {
+                margin-bottom: 4rem;
+            }
+
+            .sports-category h2 {
+                font-size: 2rem;
+            }
+
+            .category-description {
+                font-size: 1.1rem;
+            }
+
+            .sports-grid {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .sports-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+
+    <Footer />
+</Layout> 

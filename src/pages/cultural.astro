@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { HeroSlider1 } from "@static/images";
+import { Hero } from "@modules/Hero";
 import { Footer } from "@modules/Footer/index";
 
 const events = [
@@ -31,18 +31,19 @@ const events = [
 ];
 ---
 
-<Layout title="Agenda Cultural | Villanueva" description="Descubre los eventos culturales de Villanueva del Arzobispo">
+<Layout title="A la Carta | Agenda Cultural" description="Descubre los eventos culturales de Villanueva del Arzobispo">
     <main class="cultural-page">
-        <section class="hero-section">
-            <div class="hero-content">
-                <h1>Agenda Cultural</h1>
-                <p>Descubre los eventos culturales más destacados de Villanueva del Arzobispo</p>
-                <div class="search-box">
-                    <input type="text" placeholder="Buscar eventos..." />
-                    <button>Buscar</button>
-                </div>
-            </div>
-        </section>
+        <Hero
+        heroType="fullPageSlider"
+        client:visible
+        data={[{
+            background: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhobLSIMPw5BlUm123ZbkZ6yuVLP-1F6ALDpBFaM0K1VxQU-EEafMIribBp00918rzOB_yaqg9TJ38PWpMbOmP8r3Q9053tzb5sUSiqMdH8SiFLk_EZCDQ6W9zVOSJssshNx41cEJeIiM6y41ZI6lP4sKUrerDd3GavdBJb1tK_XWnDisM5TGvcmrBh8vc/s1600/28c8fa7c-fd5f-483d-a6c8-721016cf5e7d.jpeg",
+            title: "AGENDA CULTURAL",
+            paragraph:
+                "DESCUBRE LOS EVENTOS CULTURALES DE VILLANUEVA DEL ARZOBISPO",
+ 
+        }]}
+    />
 
         <section class="events-section">
             <div class="container">

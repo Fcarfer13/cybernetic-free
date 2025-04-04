@@ -15,10 +15,10 @@ export const Navigation: FC = () => {
                         <a href="/">PRINCIPAL</a>
                     </li>
                     <li>
-                        <a href="/infinite">HOSPEDAJES</a>
+                        <a href="/hospedajes">HOSPEDAJES</a>
                     </li>
                     <li>
-                        <a href="/contact">ACTIVIDADES DEPORTIVAS</a>
+                        <a href="/activitiesSports">ACTIVIDADES DEPORTIVAS</a>
                     </li>
                     <li>
                         <a href="/tourims">TURISMO</a>
