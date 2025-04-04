@@ -1,0 +1,224 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { HeroSlider1 } from "@static/images";
+import { Footer } from "@modules/Footer/index";
+
+const events = [
+    {
+        id: 1,
+        title: "Festival de Música Tradicional",
+        date: "15 de Abril",
+        time: "19:00",
+        location: "Plaza Principal",
+        description: "Disfruta de una noche llena de música tradicional con los mejores artistas locales."
+    },
+    {
+        id: 2,
+        title: "Exposición de Arte Contemporáneo",
+        date: "1-30 de Abril",
+        time: "10:00 - 20:00",
+        location: "Museo Municipal",
+        description: "Descubre las obras más destacadas de artistas contemporáneos de la región."
+    },
+    {
+        id: 3,
+        title: "Teatro Clásico: Don Quijote",
+        date: "10 de Abril",
+        time: "20:00",
+        location: "Teatro Municipal",
+        description: "Una adaptación moderna de la obra maestra de Cervantes."
+    }
+];
+---
+
+<Layout title="Agenda Cultural | Villanueva" description="Descubre los eventos culturales de Villanueva del Arzobispo">
+    <main class="cultural-page">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Agenda Cultural</h1>
+                <p>Descubre los eventos culturales más destacados de Villanueva del Arzobispo</p>
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar eventos..." />
+                    <button>Buscar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="events-section">
+            <div class="container">
+                <div class="events-grid">
+                    {events.map(event => (
+                        <article class="event-card">
+                            <div class="event-content">
+                                <div class="event-date">
+                                    <span class="date">{event.date}</span>
+                                    <span class="time">{event.time}</span>
+                                </div>
+                                <h3>{event.title}</h3>
+                                <p class="event-location">📍 {event.location}</p>
+                                <p class="event-description">{event.description}</p>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .cultural-page {
+        min-height: 100vh;
+        background: #f9fafb;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                    url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhobLSIMPw5BlUm123ZbkZ6yuVLP-1F6ALDpBFaM0K1VxQU-EEafMIribBp00918rzOB_yaqg9TJ38PWpMbOmP8r3Q9053tzb5sUSiqMdH8SiFLk_EZCDQ6W9zVOSJssshNx41cEJeIiM6y41ZI6lP4sKUrerDd3GavdBJb1tK_XWnDisM5TGvcmrBh8vc/s1600/28c8fa7c-fd5f-483d-a6c8-721016cf5e7d.jpeg');
+        background-size: cover;
+        background-position: center;
+        height: 700px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        padding: 0 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-content h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 1.5rem;
+        font-weight: 400;
+        opacity: 0.9;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        margin-bottom: 2rem;
+        line-height: 1.5;
+    }
+
+    .search-box {
+        display: flex;
+        gap: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-box input {
+        flex: 1;
+        padding: 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .search-box button {
+        padding: 1rem 2rem;
+        background: #353461;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .search-box button:hover {
+        background: #2a2a4d;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .event-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .event-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .event-date {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .event-content h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #111827;
+        line-height: 1.4;
+    }
+
+    .event-location {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+
+    .event-description {
+        color: #4b5563;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+        }
+
+        .search-box {
+            flex-direction: column;
+        }
+
+        .events-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style> 

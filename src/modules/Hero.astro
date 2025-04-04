@@ -1,0 +1,28 @@
+---
+export interface HeroProps {
+    heroType: string;
+    client: string;
+    data: {
+        image: { src: string; width?: number; height?: number; alt?: string };
+        content: {
+            title: string;
+            paragraph: string;
+            button?: { text: string; link: string };
+        };
+    };
+}
+const { heroType, client, data } = Astro.props;
+---
+
+<section class={`hero ${heroType}`}>
+    <img src={data.image.src} alt={data.image.alt} width={data.image.width} height={data.image.height} />
+    <div class="hero-content">
+        <h1>{data.content.title}</h1>
+        <p>{data.content.paragraph}</p>
+        {data.content.button && (
+            <a href={data.content.button.link} class="hero-button">
+                {data.content.button.text}
+            </a>
+        )}
+    </div>
+</section>

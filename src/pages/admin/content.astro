@@ -1,0 +1,340 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Theme } from "@styles/colors";
+
+const menuItems = [
+    { title: "Dashboard", icon: "📊", link: "/admin" },
+    { title: "Usuarios", icon: "👥", link: "/admin/users" },
+    { title: "Reservas", icon: "📅", link: "/admin/reservations" },
+    { title: "Contenido", icon: "📝", link: "/admin/content" },
+    { title: "Configuración", icon: "⚙️", link: "/admin/settings" }
+];
+
+const contentSections = [
+    {
+        title: "Monumentos",
+        description: "Gestiona la información de los monumentos históricos",
+        items: [
+            { title: "Plaza de Toros", status: "Publicado", lastUpdate: "2024-04-01" },
+            { title: "Iglesia San Andrés", status: "Borrador", lastUpdate: "2024-04-02" },
+            { title: "Ayuntamiento", status: "Publicado", lastUpdate: "2024-03-30" }
+        ]
+    },
+    {
+        title: "Museos",
+        description: "Administra el contenido de los museos",
+        items: [
+            { title: "Museo del Aceite", status: "Publicado", lastUpdate: "2024-04-03" },
+            { title: "Casa de la Cultura", status: "Publicado", lastUpdate: "2024-03-29" }
+        ]
+    },
+    {
+        title: "Personajes Históricos",
+        description: "Gestiona la información de personajes históricos",
+        items: [
+            { title: "Pedro Muñoz", status: "Publicado", lastUpdate: "2024-04-02" },
+            { title: "María Bellido", status: "Borrador", lastUpdate: "2024-04-01" }
+        ]
+    }
+];
+---
+
+<Layout title="Gestión de Contenido | Admin" description="Gestión de contenido del panel de administración">
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="menu">
+                {menuItems.map(item => (
+                    <a href={item.link} class={Astro.url.pathname === item.link ? 'active' : ''}>
+                        <span class="icon">{item.icon}</span>
+                        <span>{item.title}</span>
+                    </a>
+                ))}
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search">
+                    <input type="text" placeholder="Buscar contenido..." />
+                </div>
+                <div class="content-actions">
+                    <select class="content-type-select">
+                        <option value="">Todos los tipos</option>
+                        <option value="monuments">Monumentos</option>
+                        <option value="museums">Museos</option>
+                        <option value="characters">Personajes</option>
+                    </select>
+                    <button class="add-content-btn">+ Nuevo Contenido</button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <h1>Gestión de Contenido</h1>
+
+                {contentSections.map(section => (
+                    <div class="content-section">
+                        <div class="section-header">
+                            <div>
+                                <h2>{section.title}</h2>
+                                <p class="section-description">{section.description}</p>
+                            </div>
+                            <button class="add-item-btn">+ Añadir {section.title}</button>
+                        </div>
+                        
+                        <div class="items-grid">
+                            {section.items.map(item => (
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h3>{item.title}</h3>
+                                        <span class={`status ${item.status.toLowerCase()}`}>
+                                            {item.status}
+                                        </span>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="last-update">Actualizado: {item.lastUpdate}</span>
+                                        <div class="card-actions">
+                                            <button class="action-btn edit">✏️</button>
+                                            <button class="action-btn preview">👁️</button>
+                                            <button class="action-btn delete">🗑️</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </main>
+    </div>
+</Layout>
+
+<style>
+    /* Reutilizamos los estilos base del admin */
+    .admin-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        min-height: 100vh;
+        background: #f5f6fa;
+    }
+
+    .sidebar {
+        background: ${Theme.primary};
+        color: white;
+        padding: 2rem;
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo h2 {
+        margin: 0;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .menu {
+        margin-top: 2rem;
+    }
+
+    .menu a {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+    .menu a:hover, .menu a.active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu .icon {
+        margin-right: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 2rem;
+    }
+
+    /* Estilos específicos de la página de contenido */
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .search input {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        width: 300px;
+    }
+
+    .content-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .content-type-select {
+        padding: 0.5rem;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        background: white;
+    }
+
+    .add-content-btn, .add-item-btn {
+        padding: 0.5rem 1rem;
+        background: ${Theme.primary};
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .add-content-btn:hover, .add-item-btn:hover {
+        background: ${Theme.secondary};
+    }
+
+    .content-section {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-description {
+        color: #666;
+        margin: 0.5rem 0 0;
+    }
+
+    .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .content-card {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid #e1e1e1;
+        transition: all 0.3s ease;
+    }
+
+    .content-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .card-header h3 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+    .status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+    }
+
+    .status.publicado {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .status.borrador {
+        background: #f5f5f5;
+        color: #616161;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e1e1e1;
+    }
+
+    .last-update {
+        font-size: 0.875rem;
+        color: #666;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        padding: 0.25rem 0.5rem;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .action-btn:hover {
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        .admin-container {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .items-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-header {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .add-item-btn {
+            width: 100%;
+        }
+    }
+</style> 

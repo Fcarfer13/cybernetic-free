@@ -1,0 +1,417 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+
+const sports = [
+    {
+        id: 1,
+        name: "Torneo de Fútbol Local",
+        type: "Torneo",
+        category: "Fútbol",
+        location: "Estadio Municipal",
+        date: "2024-04-15",
+        time: "10:00",
+        status: "Activo",
+        participants: 16,
+        lastUpdate: "2024-03-20 10:30"
+    },
+    {
+        id: 2,
+        name: "Clases de Natación",
+        type: "Clase",
+        category: "Natación",
+        location: "Piscina Municipal",
+        date: "2024-04-01",
+        time: "16:00",
+        status: "Activo",
+        participants: 20,
+        lastUpdate: "2024-03-19 15:45"
+    },
+    {
+        id: 3,
+        name: "Liga de Baloncesto",
+        type: "Liga",
+        category: "Baloncesto",
+        location: "Pabellón Deportivo",
+        date: "2024-04-10",
+        time: "18:00",
+        status: "En Preparación",
+        participants: 8,
+        lastUpdate: "2024-03-18 09:20"
+    }
+];
+---
+
+<AdminLayout title="Gestión de Deportes" description="Panel de administración de eventos deportivos">
+    <div class="admin-content">
+        <header class="content-header">
+            <div class="header-title">
+                <h1>Gestión de Deportes</h1>
+                <p>Administra los eventos deportivos</p>
+            </div>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar eventos..." />
+                    <span class="search-icon">🔍</span>
+                </div>
+                <button class="primary-button">
+                    <span>+</span>
+                    Nuevo Evento
+                </button>
+            </div>
+        </header>
+
+        <div class="filters-section">
+            <div class="filter-group">
+                <select class="filter-select">
+                    <option value="">Todos los tipos</option>
+                    <option value="torneo">Torneo</option>
+                    <option value="liga">Liga</option>
+                    <option value="clase">Clase</option>
+                </select>
+                <select class="filter-select">
+                    <option value="">Todas las categorías</option>
+                    <option value="futbol">Fútbol</option>
+                    <option value="baloncesto">Baloncesto</option>
+                    <option value="natacion">Natación</option>
+                </select>
+                <select class="filter-select">
+                    <option value="">Todos los estados</option>
+                    <option value="activo">Activo</option>
+                    <option value="preparacion">En Preparación</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+                <button class="secondary-button">
+                    <span>↻</span>
+                    Actualizar
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Categoría</th>
+                        <th>Ubicación</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Participantes</th>
+                        <th>Estado</th>
+                        <th>Última actualización</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {sports.map(sport => (
+                        <tr>
+                            <td>#{sport.id}</td>
+                            <td>{sport.name}</td>
+                            <td>
+                                <span class={`badge type-${sport.type.toLowerCase()}`}>
+                                    {sport.type}
+                                </span>
+                            </td>
+                            <td>
+                                <span class={`badge category-${sport.category.toLowerCase()}`}>
+                                    {sport.category}
+                                </span>
+                            </td>
+                            <td>{sport.location}</td>
+                            <td>{sport.date}</td>
+                            <td>{sport.time}</td>
+                            <td>{sport.participants}</td>
+                            <td>
+                                <span class={`badge status-${sport.status.toLowerCase().replace(' ', '-')}`}>
+                                    {sport.status}
+                                </span>
+                            </td>
+                            <td>{sport.lastUpdate}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="icon-button edit" title="Editar">
+                                        ✏️
+                                    </button>
+                                    <button class="icon-button view" title="Ver detalles">
+                                        👁️
+                                    </button>
+                                    <button class="icon-button delete" title="Eliminar">
+                                        🗑️
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</AdminLayout>
+
+<style>
+    .admin-content {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-title h1 {
+        font-size: 1.875rem;
+        font-weight: 600;
+        color: #111827;
+        margin: 0;
+    }
+
+    .header-title p {
+        color: #6b7280;
+        margin-top: 0.5rem;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+    .search-box input {
+        width: 300px;
+        padding: 0.625rem 1rem 0.625rem 2.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+        outline: none;
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+    }
+
+    .primary-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        background: #6366f1;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .primary-button:hover {
+        background: #4f46e5;
+        transform: translateY(-1px);
+    }
+
+    .filters-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 0.5rem;
+    }
+
+    .filter-group {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .filter-select {
+        padding: 0.5rem 2.5rem 0.5rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        background: white;
+        cursor: pointer;
+    }
+
+    .secondary-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: white;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .secondary-button:hover {
+        background: #f9fafb;
+        border-color: #9ca3af;
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .data-table th {
+        background: #f9fafb;
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.875rem;
+    }
+
+    .data-table td {
+        font-size: 0.875rem;
+        color: #6b7280;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .type-torneo {
+        background: #dbeafe;
+        color: #1e40af;
+    }
+
+    .type-liga {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .type-clase {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .category-futbol {
+        background: #e0e7ff;
+        color: #3730a3;
+    }
+
+    .category-baloncesto {
+        background: #f3e8ff;
+        color: #6b21a8;
+    }
+
+    .category-natacion {
+        background: #fae8ff;
+        color: #86198f;
+    }
+
+    .status-activo {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .status-en-preparacion {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .icon-button {
+        padding: 0.375rem;
+        border: none;
+        background: transparent;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .icon-button:hover {
+        background: #f3f4f6;
+    }
+
+    .icon-button.edit:hover {
+        color: #4f46e5;
+    }
+
+    .icon-button.view:hover {
+        color: #059669;
+    }
+
+    .icon-button.delete:hover {
+        color: #dc2626;
+    }
+
+    @media (max-width: 1024px) {
+        .content-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .header-actions {
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .search-box,
+        .search-box input {
+            width: 100%;
+        }
+
+        .filters-section {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .filter-group {
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+    }
+</style> 

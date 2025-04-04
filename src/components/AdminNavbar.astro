@@ -1,0 +1,242 @@
+---
+import { Colors } from "../styles/colors";
+
+const menuItems = [
+    { name: "Dashboard", icon: "📊", path: "/admin" },
+    { name: "Usuarios", icon: "👥", path: "/admin/users" },
+    { name: "Hospedajes", icon: "🏨", path: "/admin/lodging" },
+    { name: "Actividades Deportivas", icon: "⚽", path: "/admin/sports" },
+    { name: "Turismo", icon: "🏛️", path: "/admin/tourism" },
+    { name: "Agenda Cultural", icon: "🎭", path: "/admin/cultural" },
+    { name: "Menú Principal", icon: "📋", path: "/admin/menu" },
+    { name: "Configuración", icon: "⚙️", path: "/admin/settings" }
+];
+---
+
+<nav class="admin-navbar">
+    <div class="nav-header">
+        <div class="logo-container">
+            <div class="logo-icon">V</div>
+            <div class="logo-text">
+                <h1>Villanueva</h1>
+                <p>Panel de Control</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="menu-container">
+        {menuItems.map(item => (
+            <a href={item.path} class="menu-item">
+                <div class="menu-icon">{item.icon}</div>
+                <span class="menu-text">{item.name}</span>
+            </a>
+        ))}
+    </div>
+
+    <div class="user-section">
+        <div class="user-info">
+            <div class="user-avatar">
+                <span>👤</span>
+            </div>
+            <div class="user-details">
+                <span class="user-name">Admin</span>
+                <span class="user-role">Administrador</span>
+            </div>
+        </div>
+        <a href="/" class="logout-button">
+            <span class="logout-icon">←</span>
+            <span class="logout-text">Volver al sitio</span>
+        </a>
+    </div>
+</nav>
+
+<style>
+    .admin-navbar {
+        background: #1a1c23;
+        color: #e4e6eb;
+        width: 280px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-header {
+        margin-bottom: 2rem;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .logo-icon {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+    }
+
+    .logo-text h1 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+        color: white;
+    }
+
+    .logo-text p {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin: 0;
+    }
+
+    .menu-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        color: #9ca3af;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .menu-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        transform: translateX(5px);
+    }
+
+    .menu-item.active {
+        background: rgba(99, 102, 241, 0.1);
+        color: #6366f1;
+    }
+
+    .menu-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        font-size: 1.2rem;
+    }
+
+    .menu-text {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .user-section {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+    }
+
+    .user-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .user-name {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: white;
+    }
+
+    .user-role {
+        font-size: 0.75rem;
+        color: #9ca3af;
+    }
+
+    .logout-button {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background: rgba(239, 68, 68, 0.2);
+        transform: translateX(-5px);
+    }
+
+    .logout-icon {
+        font-size: 1.25rem;
+    }
+
+    .logout-text {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+        .admin-navbar {
+            left: -280px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .admin-navbar.active {
+            left: 0;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPath = window.location.pathname;
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        menuItems.forEach(item => {
+            if (item.getAttribute('href') === currentPath) {
+                item.classList.add('active');
+            }
+        });
+    });
+</script> 

@@ -1,0 +1,95 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Hero } from "@modules/Hero";
+import { HeroSlider3, InfiniteImg1, InfiniteImg2 } from "@static/images";
+import { ServiceCards } from "@modules/ServiceCards";
+import { Footer } from "@modules/Footer";
+
+---
+
+<Layout
+    title="A la Carta | Turismo"
+    description="Turismo en Villanueva del Arzobispo, RESERVA AHORA"
+>
+<main class="page-content">
+    <Hero
+        heroType="fullPageSlider"
+        client:visible
+        data={[{
+            background: HeroSlider3.src,
+            title: "TURISMO",
+            paragraph:
+                "VISITA CADA RINCÓN DE VILLANUEVA Y CONOCE TODOS LOS SECRETROS",
+            button: {
+                text: "RESERVAR AHORA",
+                link: "../tourims/reserva"
+            }
+        }]}
+    />
+
+        <Hero
+            heroType="textImage"
+            client:visible
+            data={{
+                image: {
+                    src: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Plaza_de_toros_de_Villanueva_del_Arzobispo.jpg",
+                    width: 590,
+                    height: 300,
+                    alt: "MONUMENTOS",
+                },
+                title: "MONUMENTOS",
+                paragraph:
+                    "CONOCE TODOS LOS MONUMENTOS DE VILLANUEVA DEL ARZOBISPO.",
+                buttons: [{
+                    text: "VER MONUMENTOS",
+                    link: "../tourims/monumentos",
+                    variant: "secondary"
+                }]
+            }}
+        />
+ 
+        <Hero
+        heroType="textImage"
+        client:visible
+        data={{
+            title: "PERSONAJES HISTÓRICOS",
+            paragraph:
+                "CONOCE TODOS LOS PERSONAJES HISTÓRICOS DE VILLANUEVA DEL ARZOBISPO.",
+            image: {
+                src: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifQz_z0vwRxZKNGUjk4mbeIaJDHqUs7woTyN2ndwDmG7fpSEGDXNI0r-Uo43o0mRJ2rfZPnk9j28ukp4I5z1lEKoctx6nbb_hsVnLE45qG1l2ocsdeMojIdxzk-rqdZo0gYnrsWnBu96Ea/s2048/AB7E978D-2519-4097-AEF4-5329FB17C509.jpeg",
+                width: 590,
+                height: 300,
+                alt: "PERSONAJES HISTÓRICOS",
+            },
+            buttons: [{
+                text: "VER PERSONAJES",
+                link: "../tourims/personajes",
+                variant: "secondary"
+            }],
+            switchPlaces: true
+        }}
+    />   
+    <Hero
+            heroType="textImage"
+            client:visible
+            data={{
+                image: {
+                    src: "https://villanuevadelarzobispo.es/wp-content/uploads/2023/08/WhatsApp-Image-2023-08-03-at-09.53.36-4-1024x768.jpeg",
+                    width: 590,
+                    height: 300,
+                    alt: "Museo del aceite",
+                },
+                title: "MUSEOS",
+                paragraph:
+                    "CONOCE TODOS LOS MUSEOS DE VILLANUEVA DEL ARZOBISPO.",
+                buttons: [{
+                    text: "VER MUSEOS",
+                    link: "../tourims/museos",
+                    variant: "secondary"
+                }]
+            }}
+        />   
+        
+    </main>
+    <Footer />
+</Layout>

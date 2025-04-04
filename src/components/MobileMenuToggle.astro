@@ -1,0 +1,57 @@
+---
+import { Colors } from "../styles/colors";
+---
+
+<button class="menu-toggle" id="menuToggle">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+</button>
+
+<style define:vars={{ primaryColor: Colors.white }}>
+    .menu-toggle {
+        display: none;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1001;
+        background: var(--primaryColor);
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+        opacity: 0.9;
+    }
+
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menuToggle');
+        const navbar = document.querySelector('.admin-navbar');
+
+        if (menuToggle && navbar) {
+            menuToggle.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+            });
+        }
+    });
+</script> 

@@ -15,13 +15,18 @@ export const ButtonLink = styled.a<{
     $variant: "primary" | "secondary";
 }>`
     text-transform: uppercase;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     cursor: pointer;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     position: relative;
     z-index: 2;
+    font-weight: 600;
+    letter-spacing: 1px;
+    overflow: hidden;
 
     ${({ $variant }) => $variant === "primary" && PrimaryVariant};
     ${({ $variant }) => $variant === "secondary" && SecondaryVariant};
@@ -30,84 +35,106 @@ export const ButtonLink = styled.a<{
 export const Button = ButtonLink.withComponent("button");
 
 const PrimaryVariant = css`
-    display: inline-flex;
-    align-items: center;
-    font-size: 25px;
-    line-height: 30px;
-    padding: 10px;
-    margin-top: 40px;
-    transition: color 0.5s;
-    transition-delay: 0.2s;
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 10px 25px;
+    margin-top: 15px;
+    background: transparent;
+    color: ${Theme.primary};
+    border: 1px solid ${Theme.primary};
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 
     ${MediaQuery.max("lg")} {
-        font-size: 14px;
-        line-height: 18px;
-        margin-top: 20px;
+        font-size: 13px;
+        padding: 8px 20px;
+        margin-top: 10px;
     }
 
     &:before {
         content: "";
         position: absolute;
-        left: 0;
         top: 0;
-        height: 100%;
-        width: 0%;
-        background: ${Theme.primary};
-        z-index: -1;
-        transition: width 0.5s;
-    }
-
-    &:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
         left: 0;
         width: 100%;
-        height: 1px;
+        height: 100%;
         background: ${Theme.primary};
-        transition: width 0.5s;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+        z-index: -1;
     }
 
     &:hover {
         color: ${Theme.secondary};
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
         &:before {
-            width: 100%;
-        }
-
-        &:after {
-            width: 0%;
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         img {
-            margin-right: 30px;
+            transform: translateX(3px);
             opacity: 1;
         }
     }
 
     img {
-        transition-delay: 0.2s;
-        filter: invert(1);
-        opacity: 0;
-        margin-right: -20px;
-        transition: all 0.5s;
+        margin-left: 6px;
+        transition: all 0.3s ease;
+        opacity: 0.8;
     }
 `;
 
 const SecondaryVariant = css`
-    padding: 12px 40px;
-    min-width: 150px;
-    border: 1.5px solid ${Theme.tertiary};
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 1px;
-    font-weight: 500;
-    border-radius: 50px;
-    background: ${Theme.tertiary};
+    padding: 12px 30px;
+    min-width: 120px;
+    border: 2px solid ${Theme.secondary};
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    background: rgba(97, 97, 97, 0.9);
     color: ${Theme.primary};
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    ${MediaQuery.max("lg")} {
+        padding: 10px 25px;
+        font-size: 13px;
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: ${Theme.secondary};
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+        z-index: -1;
+    }
 
     &:hover {
-        background: transparent;
-        color: ${Theme.secondary};
+        color: ${Theme.primary};
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 1);
+
+        &:before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
     }
 `;

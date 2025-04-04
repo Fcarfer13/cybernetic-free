@@ -1,0 +1,387 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+
+const settings = {
+    general: {
+        siteName: "Villanueva",
+        siteDescription: "Portal de turismo y cultura",
+        timezone: "Europe/Madrid",
+        language: "es-ES",
+        dateFormat: "DD/MM/YYYY",
+        timeFormat: "24h"
+    },
+    notifications: {
+        emailNotifications: true,
+        pushNotifications: true,
+        eventReminders: true,
+        systemAlerts: true
+    },
+    security: {
+        twoFactorAuth: false,
+        sessionTimeout: 30,
+        passwordExpiry: 90,
+        loginAttempts: 5
+    },
+    integrations: {
+        googleAnalytics: true,
+        socialMedia: true,
+        paymentGateway: true,
+        weatherAPI: true
+    }
+};
+---
+
+<AdminLayout title="Configuración" description="Panel de administración de configuración del sistema">
+    <div class="admin-content">
+        <header class="content-header">
+            <div class="header-title">
+                <h1>Configuración</h1>
+                <p>Administra la configuración del sistema</p>
+            </div>
+            <div class="header-actions">
+                <button class="secondary-button">
+                    <span>↻</span>
+                    Restaurar valores por defecto
+                </button>
+                <button class="primary-button">
+                    <span>💾</span>
+                    Guardar cambios
+                </button>
+            </div>
+        </header>
+
+        <div class="settings-grid">
+            <!-- Configuración General -->
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2>Configuración General</h2>
+                    <p>Configura los aspectos básicos del sistema</p>
+                </div>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label>Nombre del sitio</label>
+                        <input type="text" value={settings.general.siteName} />
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción del sitio</label>
+                        <textarea>{settings.general.siteDescription}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Zona horaria</label>
+                        <select>
+                            <option value="Europe/Madrid" selected>Europe/Madrid</option>
+                            <option value="America/New_York">America/New_York</option>
+                            <option value="Asia/Tokyo">Asia/Tokyo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Idioma</label>
+                        <select>
+                            <option value="es-ES" selected>Español</option>
+                            <option value="en-US">English</option>
+                            <option value="fr-FR">Français</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Formato de fecha</label>
+                        <select>
+                            <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+                            <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Formato de hora</label>
+                        <select>
+                            <option value="24h" selected>24 horas</option>
+                            <option value="12h">12 horas</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notificaciones -->
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2>Notificaciones</h2>
+                    <p>Configura las preferencias de notificación</p>
+                </div>
+                <div class="settings-form">
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.notifications.emailNotifications} />
+                            Notificaciones por correo electrónico
+                        </label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.notifications.pushNotifications} />
+                            Notificaciones push
+                        </label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.notifications.eventReminders} />
+                            Recordatorios de eventos
+                        </label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.notifications.systemAlerts} />
+                            Alertas del sistema
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seguridad -->
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2>Seguridad</h2>
+                    <p>Configura las opciones de seguridad</p>
+                </div>
+                <div class="settings-form">
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.security.twoFactorAuth} />
+                            Autenticación de dos factores
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Tiempo de espera de sesión (minutos)</label>
+                        <input type="number" value={settings.security.sessionTimeout} min="5" max="120" />
+                    </div>
+                    <div class="form-group">
+                        <label>Caducidad de contraseña (días)</label>
+                        <input type="number" value={settings.security.passwordExpiry} min="30" max="365" />
+                    </div>
+                    <div class="form-group">
+                        <label>Intentos de inicio de sesión permitidos</label>
+                        <input type="number" value={settings.security.loginAttempts} min="3" max="10" />
+                    </div>
+                </div>
+            </section>
+
+            <!-- Integraciones -->
+            <section class="settings-section">
+                <div class="section-header">
+                    <h2>Integraciones</h2>
+                    <p>Configura las integraciones con servicios externos</p>
+                </div>
+                <div class="settings-form">
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.integrations.googleAnalytics} />
+                            Google Analytics
+                        </label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.integrations.socialMedia} />
+                            Redes sociales
+                        </label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.integrations.paymentGateway} />
+                            Pasarela de pago
+                        </label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" checked={settings.integrations.weatherAPI} />
+                            API del tiempo
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</AdminLayout>
+
+<style>
+    .admin-content {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-title h1 {
+        font-size: 1.875rem;
+        font-weight: 600;
+        color: #111827;
+        margin: 0;
+    }
+
+    .header-title p {
+        color: #6b7280;
+        margin-top: 0.5rem;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .primary-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        background: #6366f1;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .primary-button:hover {
+        background: #4f46e5;
+        transform: translateY(-1px);
+    }
+
+    .secondary-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        background: white;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .secondary-button:hover {
+        background: #f9fafb;
+        border-color: #9ca3af;
+    }
+
+    .settings-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .settings-section {
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #111827;
+        margin: 0;
+    }
+
+    .section-header p {
+        color: #6b7280;
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .settings-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group select,
+    .form-group textarea {
+        padding: 0.625rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="number"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .form-group.checkbox {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .form-group.checkbox input[type="checkbox"] {
+        width: 1rem;
+        height: 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+
+    .form-group.checkbox label {
+        margin: 0;
+        cursor: pointer;
+    }
+
+    @media (max-width: 1024px) {
+        .settings-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .content-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .header-actions {
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .primary-button,
+        .secondary-button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style> 

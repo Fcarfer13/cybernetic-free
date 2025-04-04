@@ -1,0 +1,429 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { Theme } from "@styles/colors";
+
+const menuItems = [
+    { title: "Dashboard", icon: "📊", link: "/admin" },
+    { title: "Usuarios", icon: "👥", link: "/admin/users" },
+    { title: "Reservas", icon: "📅", link: "/admin/reservations" },
+    { title: "Contenido", icon: "📝", link: "/admin/content" },
+    { title: "Configuración", icon: "⚙️", link: "/admin/settings" }
+];
+
+const reservations = [
+    { 
+        id: 1, 
+        client: "Juan Pérez",
+        tour: "Tour Histórico",
+        date: "2024-04-05",
+        time: "10:00",
+        people: 2,
+        status: "Confirmada"
+    },
+    { 
+        id: 2, 
+        client: "María García",
+        tour: "Ruta de Museos",
+        date: "2024-04-06",
+        time: "11:30",
+        people: 4,
+        status: "Pendiente"
+    },
+    { 
+        id: 3, 
+        client: "Carlos López",
+        tour: "Tour Monumental",
+        date: "2024-04-07",
+        time: "09:00",
+        people: 3,
+        status: "Cancelada"
+    }
+];
+---
+
+<Layout title="Gestión de Reservas | Admin" description="Gestión de reservas del panel de administración">
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="menu">
+                {menuItems.map(item => (
+                    <a href={item.link} class={Astro.url.pathname === item.link ? 'active' : ''}>
+                        <span class="icon">{item.icon}</span>
+                        <span>{item.title}</span>
+                    </a>
+                ))}
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search">
+                    <input type="text" placeholder="Buscar reservas..." />
+                </div>
+                <div class="filters">
+                    <select class="filter-select">
+                        <option value="all">Todos los estados</option>
+                        <option value="confirmed">Confirmadas</option>
+                        <option value="pending">Pendientes</option>
+                        <option value="cancelled">Canceladas</option>
+                    </select>
+                    <button class="add-reservation-btn">+ Nueva Reserva</button>
+                </div>
+            </header>
+
+            <div class="reservations-container">
+                <h1>Gestión de Reservas</h1>
+                
+                <div class="calendar-view">
+                    <div class="calendar-header">
+                        <button class="calendar-nav">←</button>
+                        <h2>Abril 2024</h2>
+                        <button class="calendar-nav">→</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day header">Lun</div>
+                        <div class="calendar-day header">Mar</div>
+                        <div class="calendar-day header">Mié</div>
+                        <div class="calendar-day header">Jue</div>
+                        <div class="calendar-day header">Vie</div>
+                        <div class="calendar-day header">Sáb</div>
+                        <div class="calendar-day header">Dom</div>
+                        
+                        {Array.from({ length: 31 }, (_, i) => (
+                            <div class="calendar-day">
+                                <span class="day-number">{i + 1}</span>
+                                {i + 1 === 5 && <div class="event confirmed">2 reservas</div>}
+                                {i + 1 === 6 && <div class="event pending">1 reserva</div>}
+                                {i + 1 === 7 && <div class="event cancelled">1 reserva</div>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div class="reservations-list">
+                    <h2>Próximas Reservas</h2>
+                    <div class="table-container">
+                        <table class="reservations-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Tour</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Personas</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {reservations.map(reservation => (
+                                    <tr>
+                                        <td>{reservation.id}</td>
+                                        <td>{reservation.client}</td>
+                                        <td>{reservation.tour}</td>
+                                        <td>{reservation.date}</td>
+                                        <td>{reservation.time}</td>
+                                        <td>{reservation.people}</td>
+                                        <td>
+                                            <span class={`status ${reservation.status.toLowerCase()}`}>
+                                                {reservation.status}
+                                            </span>
+                                        </td>
+                                        <td class="actions">
+                                            <button class="action-btn edit">✏️</button>
+                                            <button class="action-btn delete">🗑️</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</Layout>
+
+<style>
+    /* Reutilizamos los estilos base del admin */
+    .admin-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        min-height: 100vh;
+        background: #f5f6fa;
+    }
+
+    .sidebar {
+        background: ${Theme.primary};
+        color: white;
+        padding: 2rem;
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo h2 {
+        margin: 0;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .menu {
+        margin-top: 2rem;
+    }
+
+    .menu a {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+    .menu a:hover, .menu a.active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu .icon {
+        margin-right: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 2rem;
+    }
+
+    /* Estilos específicos de la página de reservas */
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .search input {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        width: 300px;
+    }
+
+    .filters {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .filter-select {
+        padding: 0.5rem;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        background: white;
+    }
+
+    .add-reservation-btn {
+        padding: 0.5rem 1rem;
+        background: ${Theme.primary};
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .add-reservation-btn:hover {
+        background: ${Theme.secondary};
+    }
+
+    /* Calendario */
+    .calendar-view {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .calendar-nav {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e1e1e1;
+        background: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.5rem;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        padding: 0.5rem;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    .calendar-day.header {
+        background: #f8f9fa;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .day-number {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+    }
+
+    .event {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 0.5rem;
+        right: 0.5rem;
+        padding: 0.25rem;
+        border-radius: 3px;
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    .event.confirmed {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .event.pending {
+        background: #fff3e0;
+        color: #ef6c00;
+    }
+
+    .event.cancelled {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    /* Tabla de reservas */
+    .reservations-list {
+        margin-top: 2rem;
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 10px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        overflow-x: auto;
+    }
+
+    .reservations-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .reservations-table th,
+    .reservations-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .reservations-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+    }
+
+    .status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+    }
+
+    .status.confirmada {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+
+    .status.pendiente {
+        background: #fff3e0;
+        color: #ef6c00;
+    }
+
+    .status.cancelada {
+        background: #ffebee;
+        color: #c62828;
+    }
+
+    .actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        padding: 0.25rem 0.5rem;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .action-btn:hover {
+        transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+        .admin-container {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .calendar-grid {
+            gap: 0.25rem;
+        }
+
+        .calendar-day {
+            padding: 0.25rem;
+        }
+
+        .event {
+            font-size: 0.7rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .reservations-table {
+            min-width: 800px;
+        }
+    }
+</style> 

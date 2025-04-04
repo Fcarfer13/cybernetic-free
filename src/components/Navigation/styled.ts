@@ -106,4 +106,13 @@ export const NavigationList = styled.ul`
             }
         }
     }
+
+    /* Estilos específicos para LOGIN y REGISTRARSE */
+    > li:nth-last-child(2) a {
+        color: red; /* Color para LOGIN */
+    }
+
+    > li:last-child a {
+        color: green; /* Color para REGISTRARSE */
+    }
 `;

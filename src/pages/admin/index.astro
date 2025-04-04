@@ -1,0 +1,413 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+
+const stats = [
+    {
+        title: "Usuarios Activos",
+        value: "1,234",
+        change: "+12%",
+        trend: "up",
+        icon: "👥"
+    },
+    {
+        title: "Hospedajes",
+        value: "89",
+        change: "+5%",
+        trend: "up",
+        icon: "🏨"
+    },
+    {
+        title: "Eventos Deportivos",
+        value: "45",
+        change: "+8%",
+        trend: "up",
+        icon: "⚽"
+    },
+    {
+        title: "Atracciones Turísticas",
+        value: "67",
+        change: "+3%",
+        trend: "up",
+        icon: "🏛️"
+    },
+    {
+        title: "Eventos Culturales",
+        value: "32",
+        change: "-2%",
+        trend: "down",
+        icon: "🎭"
+    }
+];
+
+const recentActivity = [
+    {
+        id: 1,
+        type: "user",
+        action: "Nuevo usuario registrado",
+        details: "Juan Pérez se ha registrado como editor",
+        time: "Hace 5 minutos"
+    },
+    {
+        id: 2,
+        type: "lodging",
+        action: "Nuevo hospedaje agregado",
+        details: "Hotel Central ha sido agregado al sistema",
+        time: "Hace 15 minutos"
+    },
+    {
+        id: 3,
+        type: "sports",
+        action: "Evento deportivo actualizado",
+        details: "Torneo de fútbol ha sido modificado",
+        time: "Hace 30 minutos"
+    },
+    {
+        id: 4,
+        type: "tourism",
+        action: "Atracción turística actualizada",
+        details: "Museo del Arte ha sido actualizado",
+        time: "Hace 1 hora"
+    },
+    {
+        id: 5,
+        type: "cultural",
+        action: "Nuevo evento cultural",
+        details: "Festival de Música ha sido programado",
+        time: "Hace 2 horas"
+    }
+];
+---
+
+<AdminLayout title="Panel de Administración" description="Dashboard principal del sistema de administración">
+    <div class="admin-content">
+        <header class="content-header">
+            <div class="header-title">
+                <h1>Panel de Administración</h1>
+                <p>Bienvenido al sistema de gestión municipal</p>
+            </div>
+            <div class="header-actions">
+                <button class="secondary-button">
+                    <span>↻</span>
+                    Actualizar
+                </button>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            {stats.map(stat => (
+                <div class="stat-card">
+                    <div class="stat-icon">{stat.icon}</div>
+                    <div class="stat-content">
+                        <h3>{stat.title}</h3>
+                        <div class="stat-value">{stat.value}</div>
+                        <div class={`stat-change ${stat.trend}`}>
+                            {stat.change}
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="activity-card">
+                <h2>Actividad Reciente</h2>
+                <div class="activity-list">
+                    {recentActivity.map(activity => (
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                {activity.type === 'user' && '👤'}
+                                {activity.type === 'lodging' && '🏨'}
+                                {activity.type === 'sports' && '⚽'}
+                                {activity.type === 'tourism' && '🏛️'}
+                                {activity.type === 'cultural' && '🎭'}
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">{activity.action}</div>
+                                <div class="activity-details">{activity.details}</div>
+                                <div class="activity-time">{activity.time}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div class="quick-actions-card">
+                <h2>Acciones Rápidas</h2>
+                <div class="quick-actions-grid">
+                    <a href="/admin/users" class="quick-action">
+                        <span class="action-icon">👥</span>
+                        <span class="action-text">Usuarios</span>
+                    </a>
+                    <a href="/admin/lodging" class="quick-action">
+                        <span class="action-icon">🏨</span>
+                        <span class="action-text">Hospedajes</span>
+                    </a>
+                    <a href="/admin/sports" class="quick-action">
+                        <span class="action-icon">⚽</span>
+                        <span class="action-text">Deportes</span>
+                    </a>
+                    <a href="/admin/tourism" class="quick-action">
+                        <span class="action-icon">🏛️</span>
+                        <span class="action-text">Turismo</span>
+                    </a>
+                    <a href="/admin/cultural" class="quick-action">
+                        <span class="action-icon">🎭</span>
+                        <span class="action-text">Cultural</span>
+                    </a>
+                    <a href="/admin/settings" class="quick-action">
+                        <span class="action-icon">⚙️</span>
+                        <span class="action-text">Configuración</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</AdminLayout>
+
+<style>
+    .admin-content {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .header-title h1 {
+        font-size: 1.875rem;
+        font-weight: 600;
+        color: #111827;
+        margin: 0;
+    }
+
+    .header-title p {
+        color: #6b7280;
+        margin-top: 0.5rem;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .secondary-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: white;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .secondary-button:hover {
+        background: #f9fafb;
+        border-color: #9ca3af;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+        padding: 1rem;
+        background: #f3f4f6;
+        border-radius: 0.5rem;
+    }
+
+    .stat-content {
+        flex: 1;
+    }
+
+    .stat-content h3 {
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #111827;
+        margin: 0.25rem 0;
+    }
+
+    .stat-change {
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .stat-change.up {
+        color: #059669;
+    }
+
+    .stat-change.down {
+        color: #dc2626;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .activity-card,
+    .quick-actions-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .activity-card h2,
+    .quick-actions-card h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #111827;
+        margin: 0 0 1rem 0;
+    }
+
+    .activity-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .activity-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .activity-item:hover {
+        background: #f9fafb;
+    }
+
+    .activity-icon {
+        font-size: 1.5rem;
+        padding: 0.5rem;
+        background: #f3f4f6;
+        border-radius: 0.5rem;
+    }
+
+    .activity-content {
+        flex: 1;
+    }
+
+    .activity-title {
+        font-weight: 500;
+        color: #111827;
+    }
+
+    .activity-details {
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin: 0.25rem 0;
+    }
+
+    .activity-time {
+        font-size: 0.75rem;
+        color: #9ca3af;
+    }
+
+    .quick-actions-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .quick-action {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1.5rem;
+        background: #f9fafb;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        color: #374151;
+        transition: all 0.3s ease;
+    }
+
+    .quick-action:hover {
+        background: #f3f4f6;
+        transform: translateY(-2px);
+    }
+
+    .action-icon {
+        font-size: 2rem;
+    }
+
+    .action-text {
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    @media (max-width: 1024px) {
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .content-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .quick-actions-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle?.addEventListener('click', () => {
+        sidebar?.classList.toggle('active');
+    });
+
+    // Cerrar el menú al hacer clic fuera de él
+    document.addEventListener('click', (e) => {
+        if (!sidebar?.contains(e.target) && !menuToggle?.contains(e.target)) {
+            sidebar?.classList.remove('active');
+        }
+    });
+</script> 
